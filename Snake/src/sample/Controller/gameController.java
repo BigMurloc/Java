@@ -31,6 +31,7 @@ public class gameController implements Initializable {
     private static int x;
     private static int y;
     private static int size = 25;
+    private static int speed = 5;
 
 
 
@@ -58,6 +59,27 @@ public class gameController implements Initializable {
         this.gc = this.canvas.getGraphicsContext2D();
         this.x=14;
         this.y=14;
+        snake.add(new SnakeBody(size*3,size));
+        snake.add(new SnakeBody(size*2, size));
+        snake.add(new SnakeBody(size*1,size));
+
+
+        new AnimationTimer(){
+            long lastTick = 0;
+
+            public void handle(long now){
+                if (lastTick == 0){
+                    lastTick = now;
+                    rysuj(gc);
+                }
+                if(now - lastTick > 1000000000/speed){
+                    lastTick = now;
+                    rysuj(gc);
+                }
+            }
+
+
+        }.start();
 
     }
 
@@ -65,9 +87,14 @@ public class gameController implements Initializable {
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0,600,400); //wszystko na czarno
         gc.setFill(Color.GREEN);
-        x+=25;
-        y+=25;
-        gc.fillRect(x, y,25,25);
+        
+        for(SnakeBody snakeBodyFragment : snake){
+            snakeBodyFragment.setX(snakeBodyFragment.getX()+size);
+            gc.fillRect(snakeBodyFragment.getX(), snakeBodyFragment.getY(), size, size);
+            snakeBodyFragment.setY(snakeBodyFragment.getY()+size);
+            gc.fillRect(snakeBodyFragment.getX(), snakeBodyFragment.getY(), size, size);
+        }
+
         System.out.println(x);
         System.out.println(y);
     }
