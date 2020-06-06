@@ -7,10 +7,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sample.Class.SnakeBody;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class gameController {
+
+    private static List<SnakeBody> snake = new ArrayList<>();
+    private static int foodX;
+    private static int foodY;
+
 
     @FXML
     private Pane paneGame;
@@ -28,3 +36,8 @@ public class gameController {
     }
 
 }
+
+
+//TODO make snake appear on the screen
+//TODO make food appear on the screen
+//TODO make method for eating food and iterating snake's body

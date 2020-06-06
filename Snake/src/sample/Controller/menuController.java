@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sample.Sound;
+import sample.Class.Sound;
 
 import java.io.IOException;
 import java.net.URL;
