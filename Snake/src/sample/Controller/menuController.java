@@ -37,7 +37,7 @@ public class menuController implements Initializable {
 
     @FXML
     void optionsButtonClicked(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/optionsController.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/fxml/optionsController.fxml"));
         Pane pane = loader.load();
         Stage stage = (Stage) startButton.getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
@@ -46,7 +46,7 @@ public class menuController implements Initializable {
 
     @FXML
     void startButtonClicked(ActionEvent event) throws IOException {                                     //https://stackoverflow.com/questions/34863425/javafx-scene-builder-how-switch-scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/gameController.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/fxml/gameController.fxml"));
         Pane pane = loader.load();
         Stage stage = (Stage) startButton.getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());

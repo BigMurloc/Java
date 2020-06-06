@@ -28,7 +28,7 @@ public class optionsController {
     void previousScene(KeyEvent event) throws IOException {
         System.out.println(event.getCode());
         if (event.getCode() == KeyCode.ESCAPE) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/menuController.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/fxml/menuController.fxml"));
             Pane pane = loader.load();
             Stage stage = (Stage) paneOptions.getScene().getWindow();
             Scene scene = new Scene(loader.getRoot());
