@@ -33,7 +33,9 @@ public class gameController implements Initializable {
     private static int size = 25;
     private static int speed = 5;
 
-
+    public static void setSpeed(int speed) {
+        gameController.speed = speed;
+    }
 
     @FXML
     private Pane paneGame;
@@ -104,3 +106,4 @@ public class gameController implements Initializable {
 
 //TODO separate blocks
 //TODO add control over snake
+//TODO terminate Animation  Timer

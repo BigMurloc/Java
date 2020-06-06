@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Class.Sound;
 
@@ -19,6 +20,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class menuController implements Initializable {
+
+    private static Color color = Color.BLUE;
+
+    public static void setColor(Color color) {
+        menuController.color = color;
+    }
 
     @FXML
     private Label snakeLabel;
@@ -61,5 +68,6 @@ public class menuController implements Initializable {
         if(!Sound.isPlaying()){
             Sound.play();
         }
+        snakeLabel.setTextFill(color);
     }
 }
