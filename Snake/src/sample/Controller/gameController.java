@@ -28,12 +28,15 @@ public class gameController implements Initializable {
     private static List<SnakeBody> snake = new ArrayList<>();
     private static int foodX;
     private static int foodY;
-    private static int x;
-    private static int y;
+    private static int x = 15;
+    private static int y = 15;
     private static int size = 25;
     private static int speed = 5;
+    private static long lastTick = 0;
 
-
+    public static void setSpeed(int speed) {
+        gameController.speed = speed;
+    }
 
     @FXML
     private Pane paneGame;
@@ -46,6 +49,7 @@ public class gameController implements Initializable {
             Stage stage = (Stage) paneGame.getScene().getWindow();
             Scene scene = new Scene(loader.getRoot());
             stage.setScene(scene);
+
         }
         if (event.getCode() == KeyCode.K) {
             rysuj(gc);
@@ -63,9 +67,7 @@ public class gameController implements Initializable {
         snake.add(new SnakeBody(size*2, size));
         snake.add(new SnakeBody(size*1,size));
 
-
         new AnimationTimer(){
-            long lastTick = 0;
 
             public void handle(long now){
                 if (lastTick == 0){
@@ -104,3 +106,4 @@ public class gameController implements Initializable {
 
 //TODO separate blocks
 //TODO add control over snake
+//TODO terminate AnimationTimer
