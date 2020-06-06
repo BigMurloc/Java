@@ -1,5 +1,6 @@
 package sample.Controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,6 +28,10 @@ public class gameController implements Initializable {
     private static List<SnakeBody> snake = new ArrayList<>();
     private static int foodX;
     private static int foodY;
+    private static int x;
+    private static int y;
+    private static int size = 25;
+
 
 
     @FXML
@@ -41,22 +46,31 @@ public class gameController implements Initializable {
             Scene scene = new Scene(loader.getRoot());
             stage.setScene(scene);
         }
-        if(event.getCode() == KeyCode.K){
-
+        if (event.getCode() == KeyCode.K) {
+            rysuj(gc);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.canvas = new Canvas(300,300);
+        this.canvas = new Canvas(600,400);
         paneGame.getChildren().add(canvas);
-        tick();
+        this.gc = this.canvas.getGraphicsContext2D();
+        this.x=14;
+        this.y=14;
+
     }
 
-    public void tick(){
-        gc = canvas.getGraphicsContext2D();
+    public void rysuj(GraphicsContext gc){
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0,600,400); //wszystko na czarno
         gc.setFill(Color.GREEN);
-        gc.fillRect(20,20,20,20);
+        x+=25;
+        y+=25;
+        gc.fillRect(x, y,25,25);
+        System.out.println(x);
+        System.out.println(y);
     }
+
 
 }
