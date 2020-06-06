@@ -87,7 +87,7 @@ public class gameController implements Initializable {
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0,600,400); //wszystko na czarno
         gc.setFill(Color.GREEN);
-        
+
         for(SnakeBody snakeBodyFragment : snake){
             snakeBodyFragment.setX(snakeBodyFragment.getX()+size);
             gc.fillRect(snakeBodyFragment.getX(), snakeBodyFragment.getY(), size, size);
@@ -101,3 +101,6 @@ public class gameController implements Initializable {
 
 
 }
+
+//TODO separate blocks
+//TODO add control over snake
