@@ -10,15 +10,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/menuController.fxml"));
-        Pane pane = fxmlLoader.load();
-        Scene scene = new Scene(pane);
+        FXMLLoader menuController = new FXMLLoader(getClass().getResource("fxml/menuController.fxml"));
+        Pane pane = menuController.load();
+        Scene scene  = new Scene(pane);
         stage.setScene(scene);
+        stage.setTitle("Snake");
+        stage.setResizable(false);
         stage.show();
-        //adding comment for github test
-        //
-        //
     }
+
 
 
     public static void main(String[] args) {

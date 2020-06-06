@@ -1,4 +1,4 @@
-package sample;
+package sample.Class;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -15,6 +15,7 @@ public class Sound {
         audioClip = new AudioClip(media.getSource());
         audioClip.setVolume(0.20);
         audioClip.setRate(1);
+        audioClip.setCycleCount(AudioClip.INDEFINITE);
         audioClip.play();
     }
 
