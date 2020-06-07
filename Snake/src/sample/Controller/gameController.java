@@ -1,5 +1,5 @@
 package sample.Controller;
-
+//Game Logic inspired by https://github.com/Gaspared/snake/blob/master/Main.java
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
