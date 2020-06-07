@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.Class.Sound;
 
@@ -44,6 +45,8 @@ public class menuController implements Initializable {
         System.exit(0);
     }
 
+
+
     @FXML
     void optionsButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/fxml/optionsController.fxml"));
@@ -71,3 +74,5 @@ public class menuController implements Initializable {
         snakeLabel.setTextFill(color);
     }
 }
+
+//TODO change movement keys assignment
