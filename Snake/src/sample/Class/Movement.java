@@ -14,8 +14,11 @@ public enum Movement {
         this.key = key;
     }
 
-    public  KeyCode getKey() {
-        return key;
+    public void setKey(KeyCode key) {
+        this.key = key;
     }
 
+    public KeyCode getKey() {
+        return key;
+    }
 }

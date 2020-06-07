@@ -5,29 +5,29 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="paneOptions" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressedEvent" onKeyReleased="#previousScene" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.optionsController">
+<Pane fx:id="paneOptions" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#previousScene" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.optionsController">
    <children>
       <Button fx:id="difficultyButton" layoutX="174.0" layoutY="267.0" mnemonicParsing="false" onAction="#difficultyButtonClicked" style="-fx-background-color: BLACK;" text="NORMAL">
          <font>
             <Font size="46.0" />
          </font>
       </Button>
-      <Button fx:id="upKey" layoutX="228.0" layoutY="40.0" mnemonicParsing="false" onAction="#upKeyClicked" onKeyPressed="#upKeyClicked" style="-fx-background-color: black;" text="W">
+      <Button fx:id="upKey" layoutX="228.0" layoutY="40.0" mnemonicParsing="false" onAction="#upKeyClicked" onKeyPressed="#upKeyPressed" style="-fx-background-color: black;" text="W">
          <font>
             <Font size="35.0" />
          </font>
       </Button>
-      <Label layoutX="120.0" layoutY="50.0" text="Góra:">
+      <Label layoutX="131.0" layoutY="51.0" text="Góra:">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Label layoutX="141.0" layoutY="120.0" text="Dół:">
+      <Label layoutX="127.0" layoutY="115.0" text="Lewo:">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Label layoutX="116.0" layoutY="174.0" text="Lewo:">
+      <Label layoutX="152.0" layoutY="175.0" text="Dół:">
          <font>
             <Font size="37.0" />
          </font>
@@ -37,17 +37,17 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <Button fx:id="downKey" layoutX="228.0" layoutY="104.0" mnemonicParsing="false" onAction="#downKeyClicked" style="-fx-background-color: black;" text="S">
+      <Button fx:id="leftKey" layoutX="231.0" layoutY="105.0" mnemonicParsing="false" onAction="#leftKeyClicked" onKeyPressed="#leftKeyPressed" style="-fx-background-color: black;" text="A">
          <font>
             <Font size="35.0" />
          </font>
       </Button>
-      <Button fx:id="leftKey" layoutX="228.0" layoutY="164.0" mnemonicParsing="false" onAction="#leftKeyClicked" style="-fx-background-color: black;" text="A">
+      <Button fx:id="downKey" layoutX="229.0" layoutY="165.0" mnemonicParsing="false" onAction="#downKeyClicked" onKeyPressed="#downKeyPressed" style="-fx-background-color: black;" text="S">
          <font>
             <Font size="35.0" />
          </font>
       </Button>
-      <Button fx:id="rightKey" layoutX="228.0" layoutY="219.0" mnemonicParsing="false" onAction="#rightKeyClicked" style="-fx-background-color: black;" text="D">
+      <Button fx:id="rightKey" layoutX="228.0" layoutY="219.0" mnemonicParsing="false" onAction="#rightKeyClicked" onKeyPressed="#rightKeyPressed" style="-fx-background-color: black;" text="D">
          <font>
             <Font size="35.0" />
          </font>
