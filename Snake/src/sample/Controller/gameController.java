@@ -37,6 +37,8 @@ public class gameController implements Initializable {
     private static Movement direction = Movement.LEFT;
     private static Difficulty difficulty = Difficulty.MEDIUM;
     //int
+    private final int width = 600;   //these values are values of a fixed screen.
+    private final int height = 400; //changing them wouldn't affect the screen itself, only the board.
     private static int speed = difficulty.getDiffculty();
     private static int currentSpeed;
     private static int pointCounter;
@@ -85,7 +87,7 @@ public class gameController implements Initializable {
         try {
             newFood(); //wygenerowanie zmiennych wartosci X, Y na food (oraz szansy na pojawienie sie buffa)
             setDefault(); // ustawienie domyslnych wartosci
-            this.canvas = new Canvas(600, 400);  //inicjalizacja plotna
+            this.canvas = new Canvas(width, height);  //inicjalizacja plotna
             this.gc = this.canvas.getGraphicsContext2D(); //inicjalizacja "rysika"
             paneGame.getChildren().add(canvas); //dodanie plotna do sceny
 
@@ -105,7 +107,7 @@ public class gameController implements Initializable {
                     }
                     if(gameOver){ //jesli gra skonczona to funkcja ma sie zatrzymac (komenda stop())
                         gc.setFill(Color.RED);
-                        gc.fillText("GAME OVER", 100, 250);
+                        gc.fillText("GAME OVER", width/2, height/2);
                         stop();
                     }
 
@@ -128,28 +130,27 @@ public class gameController implements Initializable {
     private void tick(GraphicsContext gc){
         Scene scene = paneGame.getScene();
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {   //w zaleznosci od kliknietego przycisku ustalonego z enuma Movement - zmiana kierunku poruszania sie snake'a
-            if( key.getCode() == Movement.UP.getKey()){
+            if( key.getCode() == Movement.UP.getKey() && direction != Movement.DOWN ){
                 direction = Movement.UP;
             }
-            if( key.getCode() == Movement.DOWN.getKey()){
+            if( key.getCode() == Movement.DOWN.getKey() && direction != Movement.UP ){
                 direction = Movement.DOWN;
             }
-            if( key.getCode() == Movement.LEFT.getKey()){
+            if( key.getCode() == Movement.LEFT.getKey() && direction != Movement.RIGHT ){
                 direction = Movement.LEFT;
             }
-            if( key.getCode() == Movement.RIGHT.getKey()){
+            if( key.getCode() == Movement.RIGHT.getKey() && direction != Movement.LEFT ){
                 direction = Movement.RIGHT;
             }
 
         });
         if(gameOver){
         gc.setFill(Color.RED);
-        gc.fillText("GAME OVER", 100, 250);
+        gc.fillText("GAME OVER", width/2, height/2);
         return;
     }
 
         for (int i = snake.size() -1 ; i>=1; i--){ // poruszanie sie snake'a oprocz glowy (podazanie za glowa) - najlepsze wyjasnienie rysunkiem imo
-            System.out.println(i);
         snake.get(i).setX(snake.get(i-1).getX());
         snake.get(i).setY(snake.get(i-1).getY());
 
@@ -165,7 +166,7 @@ public class gameController implements Initializable {
             break;
         case DOWN:
             snake.get(0).setY(snake.get(0).getY()+1);
-            if (snake.get(0).getY() > (400/size)-1){
+            if (snake.get(0).getY() > (height/size)-1){
                 gameOver = true;
                 snake.clear();
             }
@@ -179,7 +180,7 @@ public class gameController implements Initializable {
             break;
         case RIGHT:
             snake.get(0).setX(snake.get(0).getX()+1);
-            if (snake.get(0).getX() > (600/size)-1){
+            if (snake.get(0).getX() > (width/size)-1){ //bo pozycje okreslany poprzez x*size
                 gameOver = true;
                 snake.clear();
             }
@@ -215,7 +216,7 @@ public class gameController implements Initializable {
 
     //fill background
         gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, 600, 400);
+        gc.fillRect(0, 0, width, height);
 
     //score
         gc.setFill(Color.WHITE);
@@ -271,8 +272,8 @@ public class gameController implements Initializable {
 //new food
     public void newFood(){
         start: while(true){
-            food.setX(rand.nextInt((600/size)-1)); //-1 so fruit is in window bounds
-            food.setY(rand.nextInt((400/size)-1)); //-1 so fruit is in winndow bounds
+            food.setX(rand.nextInt((width/size)-1)); //-1 so fruit is in window bounds
+            food.setY(rand.nextInt((height/size)-1)); //-1 so fruit is in winndow bounds
             pointCounter++;
             if(rand.nextInt(chanceForBuff) == 0){
                 isBuff = true;
@@ -297,8 +298,8 @@ public class gameController implements Initializable {
 
     private void newBuff(){
         start: while(true){
-            buff.setX(rand.nextInt((600/size)-1)); //-1 so fruit is in window bounds
-            buff.setY(rand.nextInt((400/size)-1)); //-1 so fruit is in winndow bounds
+            buff.setX(rand.nextInt((width/size)-1)); //-1 so fruit is in window bounds
+            buff.setY(rand.nextInt((height/size)-1)); //-1 so fruit is in winndow bounds
 
             for (SnakeBody snakeFragment : snake){
                 if(snakeFragment.getX() == buff.getX() && snakeFragment.getY() == buff.getY()){
@@ -312,8 +313,8 @@ public class gameController implements Initializable {
 // debuff
     private void newDebuff(){
         start: while(true){
-            debuff.setX(rand.nextInt((600/size)-1)); //-1 so fruit is in window bounds
-            debuff.setY(rand.nextInt((400/size)-1)); //-1 so fruit is in winndow bounds
+            debuff.setX(rand.nextInt((width/size)-1)); //-1 so fruit is in window bounds
+            debuff.setY(rand.nextInt((height/size)-1)); //-1 so fruit is in winndow bounds
 
             for (SnakeBody snakeFragment : snake){
                 if(snakeFragment.getX() == debuff.getX() && snakeFragment.getY() == debuff.getY()){
