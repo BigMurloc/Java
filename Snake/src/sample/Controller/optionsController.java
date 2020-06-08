@@ -3,62 +3,181 @@ package sample.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Class.Difficulty;
-
+import sample.Class.Movement;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class optionsController {
+public class optionsController implements Initializable {
 
-    private static int iterator = 1;
+    private static int iterator = 1; //iterator po ktorym wybieram trudnosc
+    private boolean isOccupied = false; // zabezpieczenie przed problemem wyboru dwoch klawiszy na raz
+    private static String text = "NORMAL"; //domyslny poziom trudnosc(jego wartosc srring aby button mial okreslona wartosc textFielda
+    private static String upKeyString = "W"; //domyslne przyciski
+    private static String downKeyString = "S";
+    private static String rightKeyString = "D";
+    private static String leftKeyString = "A";
+    private static List<String> keys = new ArrayList<String>();   //lista do filtrowania po przyciskach, lepiej gdyby byl to typ, ktorego nie pamietam do ew. przepisania
 
     @FXML
-    private Pane paneOptions;
+    private Button difficultyButton;
+
+    @FXML
+    private Button upKey;
+
+    @FXML
+    private Button downKey;
 
 
     @FXML
     private Button difficulty;
 
     @FXML
-    private Label label = new menuController().getSnakeLabel();
+    private Button leftKey;
 
     @FXML
-    void difficultyClicked(ActionEvent event) {
-        menuController menu = new menuController();
-        gameController game = new gameController();
-        switch(iterator % 3){
-            case 0:
-                difficulty.setText("EASY");
-                menu.setColor(Color.GREEN);
-                game.setSpeed(Difficulty.EASY.getSpeed());
-                iterator++;
-                break;
-            case 1:
-                difficulty.setText("NORMAL");
-                menu.setColor(Color.BLUE);
-                game.setSpeed(Difficulty.MEDIUM.getSpeed());
-                iterator++;
-                break;
-            case 2:
-                difficulty.setText("HARD");
-                menu.setColor(Color.RED);
-                menu.setTest(2);
-                game.setSpeed(Difficulty.HARD.getSpeed());
-                iterator++;
-                break;
+    private Button rightKey;
+
+
+//KEY CLICKED
+    @FXML
+    void upKeyClicked(ActionEvent event) {
+        if(!isOccupied) {
+            upKey.setText("Press any button");
+            isOccupied = true;
         }
     }
 
     @FXML
+    void downKeyClicked(ActionEvent event) {
+        if(!isOccupied) {
+            downKey.setText("Press any button");
+            isOccupied = true;
+        }
+    }
+
+    @FXML
+    void rightKeyClicked(ActionEvent event) {
+        if(!isOccupied) {
+            rightKey.setText("Press any button");
+            isOccupied = true;
+        }
+    }
+
+    @FXML
+    void leftKeyClicked(ActionEvent event) {
+        if(!isOccupied) {
+            leftKey.setText("Press any button");
+            isOccupied = true;
+        }
+    }
+    //KEY PRESSED
+    @FXML
+    void upKeyPressed(KeyEvent event) {
+        if(isOccupied && !(keys.contains(event.getCode().toString())) ) {
+            if (upKey.getText().equalsIgnoreCase("Press any button")) {
+                Movement.UP.setKey(event.getCode());
+                keys.remove(upKeyString);
+                upKeyString = event.getCode().toString();
+                keys.add(upKeyString);
+                setMovementKeyString();
+                isOccupied = false;
+            }
+        }
+    }
+
+    @FXML
+    void downKeyPressed(KeyEvent event) {
+        if(isOccupied && !(keys.contains(event.getCode().toString())) ) {
+            if (downKey.getText().equalsIgnoreCase("Press any button")) {
+                Movement.DOWN.setKey(event.getCode());
+                keys.remove(downKeyString);
+                downKeyString = event.getCode().toString();
+                keys.add(downKeyString);
+                setMovementKeyString();
+                isOccupied = false;
+            }
+        }
+    }
+
+    @FXML
+    void leftKeyPressed(KeyEvent event) {
+        if(isOccupied && !(keys.contains(event.getCode().toString())) ) {
+            if (leftKey.getText().equalsIgnoreCase("Press any button")) {
+                Movement.LEFT.setKey(event.getCode());
+                keys.remove(leftKeyString);
+                leftKeyString = event.getCode().toString();
+                keys.add(leftKeyString);
+                setMovementKeyString();
+                isOccupied = false;
+            }
+        }
+    }
+
+    @FXML
+    void rightKeyPressed(KeyEvent event) {
+        if(isOccupied && !(keys.contains(event.getCode().toString())) ) {
+            if (rightKey.getText().equalsIgnoreCase("Press any button")) {
+                Movement.RIGHT.setKey(event.getCode());
+                keys.remove(rightKeyString);
+                rightKeyString = event.getCode().toString();
+                keys.add(rightKeyString);
+                setMovementKeyString();
+                isOccupied = false;
+            }
+        }
+    }
+//METHODS
+    private void setDifficultyButtonString(){
+        difficultyButton.setText(text);
+    }
+
+    private void setMovementKeyString(){
+        upKey.setText(upKeyString);
+        downKey.setText(downKeyString);
+        leftKey.setText(leftKeyString);
+        rightKey.setText(rightKeyString);
+    }
+
+    @FXML
+    void difficultyButtonClicked(ActionEvent event) {
+            iterator++;
+            switch(iterator % 3){
+            case 0:
+                text = "EASY";
+                menuController.setColor(Color.GREEN);
+                gameController.setDifficulty(Difficulty.EASY);
+                break;
+            case 1:
+                text = "NORMAL";
+                menuController.setColor(Color.BLUE);
+                gameController.setDifficulty(Difficulty.MEDIUM);
+                break;
+            case 2:
+                text = "HARD";
+                menuController.setColor(Color.RED);
+                gameController.setDifficulty(Difficulty.HARD);
+                break;
+        }
+        setDifficultyButtonString();
+    }
+
+    @FXML
+    private Pane paneOptions;
+
+    @FXML
     void previousScene(KeyEvent event) throws IOException {
-        System.out.println(event.getCode());
         if (event.getCode() == KeyCode.ESCAPE) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/fxml/menuController.fxml"));
             loader.load();
@@ -68,4 +187,16 @@ public class optionsController {
         }
 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setDifficultyButtonString();
+        setMovementKeyString();
+        keys.clear();
+        keys.add(upKeyString);
+        keys.add(downKeyString);
+        keys.add(leftKeyString);
+        keys.add(rightKeyString);
+    }
+
 }

@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="paneOptions" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#previousScene" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.optionsController">
    <children>
+<<<<<<< HEAD
+      <Button fx:id="difficultyButton" layoutX="174.0" layoutY="267.0" mnemonicParsing="false" onAction="#difficultyButtonClicked" style="-fx-background-color: BLACK;" text="NORMAL">
+         <font>
+            <Font size="46.0" />
+         </font>
+      </Button>
+      <Button fx:id="upKey" layoutX="228.0" layoutY="40.0" mnemonicParsing="false" onAction="#upKeyClicked" onKeyPressed="#upKeyPressed" style="-fx-background-color: black;" text="W">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Button>
+      <Label layoutX="131.0" layoutY="51.0" text="Góra:">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="127.0" layoutY="115.0" text="Lewo:">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="152.0" layoutY="175.0" text="Dół:">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="229.0" text="Prawo:">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Button fx:id="leftKey" layoutX="231.0" layoutY="105.0" mnemonicParsing="false" onAction="#leftKeyClicked" onKeyPressed="#leftKeyPressed" style="-fx-background-color: black;" text="A">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Button>
+      <Button fx:id="downKey" layoutX="229.0" layoutY="165.0" mnemonicParsing="false" onAction="#downKeyClicked" onKeyPressed="#downKeyPressed" style="-fx-background-color: black;" text="S">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Button>
+      <Button fx:id="rightKey" layoutX="228.0" layoutY="219.0" mnemonicParsing="false" onAction="#rightKeyClicked" onKeyPressed="#rightKeyPressed" style="-fx-background-color: black;" text="D">
+         <font>
+            <Font size="35.0" />
+=======
       <Button fx:id="difficulty" layoutX="220.0" layoutY="169.0" mnemonicParsing="false" onAction="#difficultyClicked" style="-fx-background-color: black;" text="NORMAL">
          <font>
             <Font size="29.0" />
+>>>>>>> master
          </font>
       </Button>
    </children>

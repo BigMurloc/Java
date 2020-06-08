@@ -7,8 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -22,19 +20,8 @@ import java.util.ResourceBundle;
 public class menuController implements Initializable {
 
     private static Color color = Color.BLUE;
-
-    private static int test = 1;
-
-    public void setTest(int test){
-        this.test = test;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Color getColor() {
-        return color;
+    public static void setColor(Color color) {
+        menuController.color = color;
     }
 
     @FXML
@@ -58,6 +45,8 @@ public class menuController implements Initializable {
     void exitButtonClicked(ActionEvent event) {
         System.exit(0);
     }
+
+
 
     @FXML
     void optionsButtonClicked(ActionEvent event) throws IOException {
@@ -84,7 +73,5 @@ public class menuController implements Initializable {
             Sound.play();
         }
         snakeLabel.setTextFill(color);
-        System.out.println(color.toString());
-        System.out.println(test);
     }
 }

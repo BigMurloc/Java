@@ -10,7 +10,7 @@ public class Sound {
     private static AudioClip audioClip = null;
 
     public static void play(){
-        String path = "D:\\GitHubRepositories\\Java\\Snake\\src\\sample\\resources\\Soundtrack\\14Jumpshot.mp3";
+        String path = "D:\\GitHubRepositories\\Java\\Snake\\src\\sample\\resources\\Soundtrack\\domkosnake44.mp3";
         Media media = new Media(Paths.get(path).toUri().toString());
         audioClip = new AudioClip(media.getSource());
         audioClip.setVolume(0.20);
