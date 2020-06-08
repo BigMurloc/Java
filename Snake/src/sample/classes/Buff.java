@@ -1,4 +1,4 @@
-package sample.Class;
+package sample.classes;
 
 public class Buff {
     private int x;

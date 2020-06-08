@@ -1,4 +1,4 @@
-package sample.Class;
+package sample.classes;
 
 public class SnakeBody {
     private int x;

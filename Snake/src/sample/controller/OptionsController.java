@@ -1,4 +1,4 @@
-package sample.Controller;
+package sample.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,15 +11,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Class.Difficulty;
-import sample.Class.Movement;
+import sample.classes.Difficulty;
+import sample.classes.Movement;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class optionsController implements Initializable {
+public class OptionsController implements Initializable {
 
     private static int iterator = 1; //iterator po ktorym wybieram trudnosc
     private boolean isOccupied = false; // zabezpieczenie przed problemem wyboru dwoch klawiszy na raz
@@ -156,18 +156,18 @@ public class optionsController implements Initializable {
             switch(iterator % 3){
             case 0:
                 text = "EASY";
-                menuController.setColor(Color.GREEN);
-                gameController.setDifficulty(Difficulty.EASY);
+                MenuController.setColor(Color.GREEN);
+                GameController.setDifficulty(Difficulty.EASY);
                 break;
             case 1:
                 text = "NORMAL";
-                menuController.setColor(Color.BLUE);
-                gameController.setDifficulty(Difficulty.MEDIUM);
+                MenuController.setColor(Color.BLUE);
+                GameController.setDifficulty(Difficulty.MEDIUM);
                 break;
             case 2:
                 text = "HARD";
-                menuController.setColor(Color.RED);
-                gameController.setDifficulty(Difficulty.HARD);
+                MenuController.setColor(Color.RED);
+                GameController.setDifficulty(Difficulty.HARD);
                 break;
         }
         setDifficultyButtonString();
