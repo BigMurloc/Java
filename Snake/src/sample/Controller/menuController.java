@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 public class menuController implements Initializable {
 
     private static Color color = Color.BLUE;
-
     public static void setColor(Color color) {
         menuController.color = color;
     }
@@ -36,6 +35,11 @@ public class menuController implements Initializable {
 
     @FXML
     private Button startButton;
+
+    @FXML
+    public Label getSnakeLabel() {
+        return snakeLabel;
+    }
 
     @FXML
     void exitButtonClicked(ActionEvent event) {
@@ -71,5 +75,3 @@ public class menuController implements Initializable {
         snakeLabel.setTextFill(color);
     }
 }
-
-//TODO change movement keys assignment

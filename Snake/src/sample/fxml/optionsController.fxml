@@ -7,6 +7,7 @@
 
 <Pane fx:id="paneOptions" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#previousScene" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.optionsController">
    <children>
+<<<<<<< HEAD
       <Button fx:id="difficultyButton" layoutX="174.0" layoutY="267.0" mnemonicParsing="false" onAction="#difficultyButtonClicked" style="-fx-background-color: BLACK;" text="NORMAL">
          <font>
             <Font size="46.0" />

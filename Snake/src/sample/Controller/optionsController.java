@@ -39,6 +39,10 @@ public class optionsController implements Initializable {
     @FXML
     private Button downKey;
 
+
+    @FXML
+    private Button difficulty;
+
     @FXML
     private Button leftKey;
 

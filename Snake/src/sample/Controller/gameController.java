@@ -24,7 +24,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 //TODO przetlumaczyc wszystko co po polsku na angielski (!)
 public class gameController implements Initializable {
-
     private  Canvas canvas;
     private  GraphicsContext gc;
     private  List<SnakeBody> snake = new ArrayList<>();
@@ -48,8 +47,9 @@ public class gameController implements Initializable {
     private  boolean isDebuff = false;
     //random
     static Random rand = new Random();
-
-
+    public static void setSpeed(int speed) {
+        gameController.speed = speed;
+    }
 
     public static void setDifficulty(Difficulty difficulty) { //zmiana poziomu trudnosci
         gameController.difficulty = difficulty;
@@ -76,6 +76,7 @@ public class gameController implements Initializable {
             Stage stage = (Stage) paneGame.getScene().getWindow();
             Scene scene = new Scene(loader.getRoot());
             stage.setScene(scene);
+
         }
     }
 
@@ -324,4 +325,3 @@ public class gameController implements Initializable {
     }
 
 }
-
