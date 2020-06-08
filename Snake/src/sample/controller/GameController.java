@@ -1,4 +1,4 @@
-package sample.Controller;
+package sample.controller;
 //Game Logic inspired by https://github.com/Gaspared/snake/blob/master/Main.java
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -12,10 +12,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Class.Difficulty;
-import sample.Class.Food;
-import sample.Class.Movement;
-import sample.Class.SnakeBody;
+import sample.classes.Difficulty;
+import sample.classes.Food;
+import sample.classes.Movement;
+import sample.classes.SnakeBody;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +23,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 //TODO przetlumaczyc wszystko co po polsku na angielski (!)
-public class gameController implements Initializable {
+//TODO obsluzyc wyjatkek out of bounds
+public class GameController implements Initializable {
     private  Canvas canvas;
     private  GraphicsContext gc;
     private  List<SnakeBody> snake = new ArrayList<>();
@@ -50,11 +51,11 @@ public class gameController implements Initializable {
     //random
     static Random rand = new Random();
     public static void setSpeed(int speed) {
-        gameController.speed = speed;
+        GameController.speed = speed;
     }
 
     public static void setDifficulty(Difficulty difficulty) { //zmiana poziomu trudnosci
-        gameController.difficulty = difficulty;
+        GameController.difficulty = difficulty;
     }
 
     public static void setDefault(){ //metoda do ustawiania domyslnych wartosci w trakcie inicjalizacji (brak generowal bledy w postaci stackowania sie speeda);
@@ -71,7 +72,6 @@ public class gameController implements Initializable {
     void previousScene(KeyEvent event) throws IOException, InterruptedException { //przejscie do poprzedniej sceny (metoda nie jest uniwersalna)
         if(event.getCode() == KeyCode.ESCAPE){
             gameOver = true;
-            snake.clear();
             Thread.sleep(400);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/fxml/menuController.fxml"));
             loader.load();
@@ -161,28 +161,24 @@ public class gameController implements Initializable {
             snake.get(0).setY(snake.get(0).getY()-1);
             if (snake.get(0).getY() < 0){
                 gameOver = true;
-                snake.clear();
             }
             break;
         case DOWN:
             snake.get(0).setY(snake.get(0).getY()+1);
             if (snake.get(0).getY() > (height/size)-1){
                 gameOver = true;
-                snake.clear();
             }
             break;
         case LEFT:
             snake.get(0).setX(snake.get(0).getX()-1);
             if (snake.get(0).getX() < 0){
                 gameOver = true;
-                snake.clear();
             }
             break;
         case RIGHT:
             snake.get(0).setX(snake.get(0).getX()+1);
             if (snake.get(0).getX() > (width/size)-1){ //bo pozycje okreslany poprzez x*size
                 gameOver = true;
-                snake.clear();
             }
             break;
     }
@@ -261,10 +257,9 @@ public class gameController implements Initializable {
     // snake
         for (SnakeBody snakeFragment : snake) {
         gc.setFill(Color.MEDIUMPURPLE);
-        gc.fillRect(snakeFragment.getX() * size, snakeFragment.getY() * size, size - 1, size - 1); //pokolorowanie borderow
+        gc.fillRect(snakeFragment.getX() * size, snakeFragment.getY() * size, size - 1, size - 1); //pokolorowanie borderowgc.rotate(45);
         gc.setFill(Color.PURPLE);
         gc.fillRect(snakeFragment.getX() * size, snakeFragment.getY() * size, size - 2, size - 2); // pokolorowanie snake'a (nalozenie na duzy kwadrat, mniejszego)
-
     }
 
 

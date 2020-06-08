@@ -1,4 +1,4 @@
-package sample.Controller;
+package sample.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,17 +11,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Class.Sound;
+import sample.classes.Sound;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class menuController implements Initializable {
+public class MenuController implements Initializable {
 
     private static Color color = Color.BLUE;
     public static void setColor(Color color) {
-        menuController.color = color;
+        MenuController.color = color;
     }
 
     @FXML

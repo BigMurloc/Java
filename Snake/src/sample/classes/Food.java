@@ -1,4 +1,4 @@
-package sample.Class;
+package sample.classes;
 
 public class Food {
     private int x;

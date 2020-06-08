@@ -1,6 +1,7 @@
-package sample.Class;
+package sample.classes;
 
 public enum Difficulty {
+
     EASY(3, 3, 1),
     MEDIUM(5, 2, 2),
     HARD(7, 1, 3);
