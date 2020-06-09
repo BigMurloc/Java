@@ -4,8 +4,6 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 
 import java.nio.file.Paths;
-//TODO sciezka wzgledna
-//TODO resources -> obook src a nie w src
 public class Sound {
 
     private static AudioClip audioClip = null;
