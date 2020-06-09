@@ -195,7 +195,6 @@ public class GameController implements Initializable {
         for (int i =1; i < snake.size(); i++){
         if (snake.get(0).getX() == snake.get(i).getX() && snake.get(0).getY() == snake.get(i).getY()){
             gameOver = true;
-            snake.clear(); //to erase snake from
         }
     }
 
