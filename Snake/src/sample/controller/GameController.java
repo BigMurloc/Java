@@ -23,45 +23,37 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 //TODO przetlumaczyc wszystko co po polsku na angielski (!)
-//TODO obsluzyc wyjatkek out of bounds
+//TODO maxspeed = 20;
 public class GameController implements Initializable {
-    private  Canvas canvas;
-    private  GraphicsContext gc;
-    private  List<SnakeBody> snake = new ArrayList<>();
+    private Canvas canvas;
+    private GraphicsContext gc;
+    private List<SnakeBody> snake = new ArrayList<>();
     //food, buff, debuff variables
-    private  Food food = new Food(0,0);
-    private  Food buff = new Food(0,0);
-    private  Food debuff = new Food(10,10);
-    private  int foodColor = 0;
-    private  int chanceForBuff = 4;    // 4 -> 1/4 -> 25% | 1/x
+    private Food food = new Food(0,0);
+    private Food buff = new Food(0,0);
+    private Food debuff = new Food(10,10);
+    private int foodColor = 0;
+    private int chanceForBuff = 4;    // 4 -> 1/4 -> 25% | 1/x
+    //Movement
+    private static Movement direction = Movement.LEFT; //TODO change from enum to simple class
     //Enums
-    private static Movement direction = Movement.LEFT;
-    private static Difficulty difficulty = Difficulty.MEDIUM;
+    private static Difficulty difficulty = Difficulty.MEDIUM; //need access from diffrent class
     //int
-    private final int width = 600;   //these values are values of a fixed screen.
+    private final int width = 600;   //these values are values of a fixed screen
     private final int height = 400; //changing them wouldn't affect the screen itself, only the board.
-    private static int speed = difficulty.getDiffculty();
-    private static int currentSpeed;
-    private static int pointCounter;
-    private static int size = 20;
+    private int speed = difficulty.getDiffculty();
+    private int pointCounter;
+    private int size = 20;
     //booleans
-    private static boolean gameOver = false;
-    private  boolean isBuff = false;
-    private  boolean isDebuff = false;
+    private boolean gameOver = false;
+    private boolean isBuff = false;
+    private boolean isDebuff = false;
     //random
-    static Random rand = new Random();
-    public static void setSpeed(int speed) {
-        GameController.speed = speed;
-    }
+    Random rand = new Random();
 
-    public static void setDifficulty(Difficulty difficulty) { //zmiana poziomu trudnosci
+
+    public static void setDifficulty(Difficulty difficulty) { //changing game difficulty
         GameController.difficulty = difficulty;
-    }
-
-    public static void setDefault(){ //metoda do ustawiania domyslnych wartosci w trakcie inicjalizacji (brak generowal bledy w postaci stackowania sie speeda);
-        currentSpeed = speed;
-        pointCounter = 0;
-        gameOver = false;
     }
 
     @FXML
@@ -69,7 +61,7 @@ public class GameController implements Initializable {
 
 
     @FXML
-    void previousScene(KeyEvent event) throws IOException, InterruptedException { //przejscie do poprzedniej sceny (metoda nie jest uniwersalna)
+    void previousScene(KeyEvent event) throws IOException, InterruptedException { //changing to the previous scene, not universal
         if(event.getCode() == KeyCode.ESCAPE){
             gameOver = true;
             Thread.sleep(400);
@@ -85,37 +77,34 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            newFood(); //wygenerowanie zmiennych wartosci X, Y na food (oraz szansy na pojawienie sie buffa)
-            setDefault(); // ustawienie domyslnych wartosci
-            this.canvas = new Canvas(width, height);  //inicjalizacja plotna
-            this.gc = this.canvas.getGraphicsContext2D(); //inicjalizacja "rysika"
-            paneGame.getChildren().add(canvas); //dodanie plotna do sceny
+            newFood(); // generating new food coordinates along with chance to spawn a buff
+            this.canvas = new Canvas(width, height);  // initialization of canvas
+            this.gc = this.canvas.getGraphicsContext2D(); //initialization of drawing method
+            paneGame.getChildren().add(canvas); //adding canvas to scene
 
-            new AnimationTimer() {  //timer w ktorym wykonuje sie gra
-                long lastTick = 0;  //ostatni tick
+            new AnimationTimer() {  //game timer
+                long lastTick = 0;
 
                 @Override
                 public void handle(long now) {
-                    if (lastTick == 0) {
-                        lastTick = now; //ustawienie ostatniego  ticka na ten moment jesli tick jest == 0( na sammy poczatku)
-                        tick(gc); //wywolanie ticka
-                        return;
-                    }
-                    if (now - lastTick > 1000000000 / currentSpeed) { //jesli roznica pomiedzy czasem teraz a ostatniego ticka jest wystarczajaco duza to wykonuje sie if
-                        lastTick = now;                               // im wiekszy mianownik tym mniejsza liczba do porownania w zwiazku z czym tick nastepuje szybciej
-                        tick(gc);
-                    }
-                    if(gameOver){ //jesli gra skonczona to funkcja ma sie zatrzymac (komenda stop())
+                    if(gameOver){ //if the game is over - stop the game
                         gc.setFill(Color.RED);
                         gc.fillText("GAME OVER", width/2, height/2);
                         stop();
                     }
-
-
+                    if (lastTick == 0) {
+                        lastTick = now;
+                        tick(gc);
+                        return;
+                    }
+                    if (now - lastTick > 1000000000 / speed) { //if the difference between now and then is big enough - do tick
+                        lastTick = now;
+                        tick(gc);
+                    }
                 }
-            }.start(); //rozpoczenie timera
+            }.start();
 
-            snake.add(new SnakeBody(size/2, size/2)); //dodanie pooczątkowych bloczków snake'a
+            snake.add(new SnakeBody(size/2, size/2)); //snake's initial body
             snake.add(new SnakeBody(size/2, size/2));
             snake.add(new SnakeBody(size/2, size/2));
 
@@ -129,7 +118,7 @@ public class GameController implements Initializable {
     //tick
     private void tick(GraphicsContext gc){
         Scene scene = paneGame.getScene();
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {   //w zaleznosci od kliknietego przycisku ustalonego z enuma Movement - zmiana kierunku poruszania sie snake'a
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {   //changing the direction of the snake depending on which key is pressed
             if( key.getCode() == Movement.UP.getKey() && direction != Movement.DOWN ){
                 direction = Movement.UP;
             }
@@ -150,13 +139,13 @@ public class GameController implements Initializable {
         return;
     }
 
-        for (int i = snake.size() -1 ; i>=1; i--){ // poruszanie sie snake'a oprocz glowy (podazanie za glowa) - najlepsze wyjasnienie rysunkiem imo
+        for (int i = snake.size() -1 ; i>=1; i--){ // moving the body of the snake (without the head)
         snake.get(i).setX(snake.get(i-1).getX());
         snake.get(i).setY(snake.get(i-1).getY());
 
     }
 
-        switch(direction){ //zmiana kierunku poruszania sie snake w zaleznosci od wcisnietego klawisza -> iterowanie po X/Y //najlatwiej wyjasnnic rysunkiem
+        switch(direction){ //changing the XY of the snake's head depending on the current direction
         case UP:
             snake.get(0).setY(snake.get(0).getY()-1);
             if (snake.get(0).getY() < 0){
@@ -177,36 +166,36 @@ public class GameController implements Initializable {
             break;
         case RIGHT:
             snake.get(0).setX(snake.get(0).getX()+1);
-            if (snake.get(0).getX() > (width/size)-1){ //bo pozycje okreslany poprzez x*size
+            if (snake.get(0).getX() > (width/size)-1){
                 gameOver = true;
             }
             break;
     }
 
     //eat food
-        if(food.getX() == snake.get(0).getX() && food.getY() == snake.get(0).getY()){ // -1 -1 zeby namalowac bloczek snake'a poza gra
-            snake.add(new SnakeBody(-1,-1));                                   // na krotki moment pojawai sie blok "poza" wezem i potem go dodaje do niege (w sensie graficznym)
+        if(food.getX() == snake.get(0).getX() && food.getY() == snake.get(0).getY()){ // -1 -1 so the snake's body fragment is out of the screen
+            snake.add(new SnakeBody(-1,-1));                                   //(in first tick the fragment wouldn't be attached to snake's body)
             newFood();
         }
 
     //eat buff
-    if(buff.getX() == snake.get(0).getX() && buff.getY() == snake.get(0).getY()){ // ustalenie -1 -1 zeby namalowac poza gra
+    if(buff.getX() == snake.get(0).getX() && buff.getY() == snake.get(0).getY()){ // -1 -1 so you can't access the buff while it shouldn't have spawned
         buff.setX(-1);
         buff.setY(-1);
-        currentSpeed -= difficulty.getSpeedChangeBuff();
+        speed -= difficulty.getSpeedChangeBuff();
     }
     //eat debuff
-    if(debuff.getX() == snake.get(0).getX() && debuff.getY() == snake.get(0).getY()){ // ustalenie -1 -1 zeby namalowac poza gra
+    if(debuff.getX() == snake.get(0).getX() && debuff.getY() == snake.get(0).getY()){ // -1 -1 so you can't access the debuff when it shouldn't have spawned
         debuff.setX(-1);
         debuff.setY(-1);
-        currentSpeed += difficulty.getSpeedChangeDebuff();
+        speed += difficulty.getSpeedChangeDebuff();
     }
 
     //self destroy
         for (int i =1; i < snake.size(); i++){
         if (snake.get(0).getX() == snake.get(i).getX() && snake.get(0).getY() == snake.get(i).getY()){
             gameOver = true;
-            snake.clear(); //zeby wymazac snake i jego obiekty z listy
+            snake.clear(); //to erase snake from
         }
     }
 
@@ -279,14 +268,14 @@ public class GameController implements Initializable {
                 newDebuff();
             }
 
-            for (SnakeBody snakeFragment : snake){ //jesli snake pojawi sie na owocku lub owocek na snake'u
+            for (SnakeBody snakeFragment : snake){ //if the snake meets the fruit or the fruit spawns within snake body
                 if(snakeFragment.getX() == food.getX() && snakeFragment.getY() == food.getY()){
-                    continue start; //wroc do start i zrob na nowo
+                    continue start; //go back to start and do again
                 }
             }
 
             foodColor = rand.nextInt(5);
-            currentSpeed++;
+            speed++;
             break;
         }
     }
