@@ -1,2 +1,2 @@
 # Java
-Java projects
+Snake
